@@ -20,11 +20,8 @@ void draw(){
     // convert i from pixels to math
     // do f(x) to result get y
     // convert y from math to pixels
-    //for (int w = 0; w < sampleRate - 1; w++){
-      multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),RainbowGen());
-    //}
-    //println(round(xFunction(-10)));
-    //println(exp(-10));
+    
+    multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),RainbowGen());
     
     //for (int w = 0; w < sampleRate; w++){
     //  multiPix(i,round(xFunction(i - Divide(w,sampleRate))) + height/2,RainbowGen());
@@ -37,7 +34,7 @@ void draw(){
   Axis(20,20);
   
   
-  println(frameRate);
+  println(int(frameRate));
 }
 
 void multiPix(int x, int y, color c){
