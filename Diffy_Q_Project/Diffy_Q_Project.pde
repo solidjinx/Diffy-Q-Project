@@ -37,7 +37,7 @@ void draw(){
 
 void multiPix(int x, int y, color c){
   //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
-  if (x > 2 && x < (width - 2) && y > (yMin + 2) && y < (yMax - 2)){
+  if (y > 0 && y < height){
     pixels[(y - 1)*width + (x - 1)] = c;    //TOP-LEFT
     pixels[(y - 1)*width + x] = c;          //TOP-CENTER
     pixels[(y - 1)*width + (x + 1)] = c;    //TOP-RIGHT
