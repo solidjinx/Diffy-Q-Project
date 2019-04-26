@@ -10,6 +10,7 @@ void setup(){
 }
 
 void draw(){
+  RainbowGen();
   for (int i = 0; i < pixels.length; i++){
     pixels[i] = color(255);
   }
@@ -21,7 +22,7 @@ void draw(){
     // do f(x) to result get y
     // convert y from math to pixels
     
-    multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),RainbowGen());
+    multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
     
     //for (int w = 0; w < sampleRate; w++){
     //  multiPix(i,round(xFunction(i - Divide(w,sampleRate))) + height/2,RainbowGen());

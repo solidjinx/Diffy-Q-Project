@@ -101,8 +101,8 @@ float[] QuadraticEQ(float a, float b, float c){
     return (new float[]{Divide(-b + sqrt(sq(b) - 4*a*c),2*a),Divide(-b - sqrt(sq(b) - 4*a*c),2*a)});
   }
   else {
-    println("Non-Real Solutions to QuadraticEQ -- returned Radicand & Real Divisor");
-    return (new float[]{sq(b) - 4*a*c,Divide(-b,2*a)});
+    println("Non-Real Solutions to QuadraticEQ -- returned Rectangular Complex Divisor");
+    return (new float[]{Divide(sqrt(-(sq(b) - 4*a*c)),2*a),Divide(-b,2*a)});
   }
 }
 
@@ -118,3 +118,11 @@ float HeronArea(float sideA, float sideB, float sideC){
 }
 
 //===============================================ANALYTIC COMPUTATION====================================================================\\
+
+//2nd Order Linear Constant Coefficient Homogeneous ODE parcer
+int[] twoolcchodeParcer(float[] parameters){
+  if (parameters[0] == parameters[1]){
+    
+  }
+  return (new int[]{1,0,7});
+}
