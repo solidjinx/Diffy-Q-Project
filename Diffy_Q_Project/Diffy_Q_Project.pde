@@ -21,7 +21,7 @@ void draw(){
     // do f(x) to result get y
     // convert y from math to pixels
     //for (int w = 0; w < sampleRate - 1; w++){
-      multiPix(i,round(xFunction(map(i,1,width - 2,xMin,xMax))) + round(Divide(height,2)),RainbowGen());
+      multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),RainbowGen());
     //}
     //println(round(xFunction(-10)));
     //println(exp(-10));
