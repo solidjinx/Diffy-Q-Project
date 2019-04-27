@@ -11,6 +11,7 @@ void setup(){
 
 void draw(){
   RainbowGen();
+  Axis(20,20);
   for (int i = 0; i < pixels.length; i++){
     pixels[i] = color(255);
   }
@@ -32,7 +33,6 @@ void draw(){
     //}
   }
   updatePixels();
-  Axis(20,20);
   
   
   println(int(frameRate));

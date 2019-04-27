@@ -96,12 +96,15 @@ float ReturnNotCompare(float numberA, float numberB){
 }
 
 //Intelligent Quadratic solver
+boolean realRoots;
 float[] QuadraticEQ(float a, float b, float c){
   if ((sq(b) - 4*a*c) >= 0){
+    realRoots = true;
     return (new float[]{Divide(-b + sqrt(sq(b) - 4*a*c),2*a),Divide(-b - sqrt(sq(b) - 4*a*c),2*a)});
   }
   else {
     println("Non-Real Solutions to QuadraticEQ -- returned Rectangular Complex Divisor");
+    realRoots = false;
     return (new float[]{Divide(sqrt(-(sq(b) - 4*a*c)),2*a),Divide(-b,2*a)});
   }
 }
@@ -119,10 +122,16 @@ float HeronArea(float sideA, float sideB, float sideC){
 
 //===============================================ANALYTIC COMPUTATION====================================================================\\
 
-//2nd Order Linear Constant Coefficient Homogeneous ODE parcer
-int[] twoolcchodeParcer(float[] parameters){
-  if (parameters[0] == parameters[1]){
-    
+//2nd Order Linear Constant Coefficient Homogeneous ODE spring type parcer
+String springType(float m, float b, float k){
+  //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
+  if (realRoots && QuadraticEQ(m,b,k)[0] != QuadraticEQ(m,b,k)[1]){
+    return "Overdamped";
   }
-  return (new int[]{1,0,7});
+  else if (realRoots && QuadraticEQ(m,b,k)[0] == QuadraticEQ(m,b,k)[1]){
+    return "Critically Damped";
+  }
+  else {
+    return "Underdamped";
+  }
 }
