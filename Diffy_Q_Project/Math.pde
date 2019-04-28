@@ -125,12 +125,14 @@ float HeronArea(float sideA, float sideB, float sideC){
 //2nd Order Linear Constant Coefficient Homogeneous ODE spring type parcer
 String springType(float m, float b, float k){
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
-  if (realRoots && QuadraticEQ(m,b,k)[0] != QuadraticEQ(m,b,k)[1]){
+  if (QuadraticEQ(m,b,k)[0] != QuadraticEQ(m,b,k)[1] && realRoots){
     return "Overdamped";
   }
-  else if (realRoots && QuadraticEQ(m,b,k)[0] == QuadraticEQ(m,b,k)[1]){
+  //Two real, repeating roots of the form:  C1e^(r1t) + C2te^(r2t)
+  else if (QuadraticEQ(m,b,k)[0] == QuadraticEQ(m,b,k)[1] && realRoots){
     return "Critically Damped";
   }
+  //Two imaginary, non-repeating roots of the form:  C1e^(at)cos(bt) + C2e^(at)sin(bt)
   else {
     return "Underdamped";
   }
