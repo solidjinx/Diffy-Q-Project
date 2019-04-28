@@ -65,6 +65,63 @@ float fCube(float n){
   return n*sq(n);
 }
 
+//Calculates the values for non-default trigonometric functions by their shorthand notation
+float trigFunction(String name, float theta){
+  if (name == "help!"){
+    String[] trigCatalog = {"Cosecant --> csc(Z)=1/sin(Z)","Secant --> sec(Z)=1/cos(Z)","Cotangent --> cot(Z)=1/tan(Z)","Versine --> ver(Z)=1 - cos(Z)","Vercosine --> vcs(Z)=1 + cos(Z)","Coversine --> cvs(Z)=1 - sin(Z)","Covercosine --> cvc(Z)=1 + sin(Z)","Haversine --> hav(Z)=(1 - cos(Z))/2","Havercosine --> hvc(Z)=(1 + cos(Z))/2","Hacoversine --> hcv(Z)=(1 - sin(Z))/2","Hacovercosine --> hcc(Z)=(1 + sin(Z))/2","Exsecant --> exs(Z)=sec(Z) - 1","Excosecant --> exc(Z)=csc(Z) - 1","Chord --> crd(Z)=2sin(Z/2)"};
+    for (int i = 0; i < trigCatalog.length; i++){
+      println(trigCatalog[i]);
+    }
+    return 0;
+  }
+  else if (name == "csc"){
+    return Divide(1,sin(theta));
+  }
+  else if (name == "sec"){
+    return Divide(1,cos(theta));
+  }
+  else if (name == "cot"){
+    return Divide(1,tan(theta));
+  }
+  else if (name == "ver"){
+    return (1 - cos(theta));
+  }
+  else if (name == "vcs"){
+    return (1 + cos(theta));
+  }
+  else if (name == "cvs"){
+    return (1 - sin(theta));
+  }
+  else if (name == "cvc"){
+    return (1 + sin(theta));
+  }
+  else if (name == "hav"){
+    return Divide(1 - cos(theta),2);
+  }
+  else if (name == "hvc"){
+    return Divide(1 + cos(theta),2);
+  }
+  else if (name == "hcv"){
+    return Divide(1 - sin(theta),2);
+  }
+  else if (name == "hcc"){
+    return Divide(1 + sin(theta),2);
+  }
+  else if (name == "exs"){
+    return (trigFunction("sec",theta) - 1);
+  }
+  else if (name == "exc"){
+    return (trigFunction("csc",theta) - 1);
+  }
+  else if (name == "crd"){
+    return 2*sin(Divide(theta,2));
+  }
+  else {
+    println("Invalid or missing entry; type 'help!' to see a list of available functions");
+    return 0;
+  }
+}
+
 //Is numberA > numberB?
 boolean Compare(float numberA, float numberB){
   if (numberA > numberB){
@@ -109,7 +166,7 @@ float[] QuadraticEQ(float a, float b, float c){
   }
 }
 
-//Calculates the length of the hypetenuse of a triangle given its two legs
+//Calculates the length of the hypotenuse of a triangle given its two legs
 float Pythag(float sideA, float sideB){
   return sqrt(fSummation(new float[]{sq(sideA),sq(sideB)}));
 }
@@ -135,5 +192,18 @@ String springType(float m, float b, float k){
   //Two imaginary, non-repeating roots of the form:  C1e^(at)cos(bt) + C2e^(at)sin(bt)
   else {
     return "Underdamped";
+  }
+}
+
+//Calculates a particular solution given two initial conditions
+float[] particular(float xNot, float rOne, float rTwo, float yNot, float yprimeNot){
+  if (springType(springM,springB,springK) == "Overdamped"){
+    return (new float[]{Divide(rTwo*yNot - yprimeNot,exp(rOne*xNot)*(rTwo - rOne)),Divide(yprimeNot - rOne*yNot,exp(rTwo*xNot)*(rTwo - rOne))});
+  }
+  else if (springType(springM,springB,springK) == "Critically Damped"){
+    return (new float[]{Divide(yNot - xNot*yprimeNot - rOne*xNot*yNot,exp(rOne*xNot)),Divide(yprimeNot - rOne*yNot,exp(rOne*xNot))});
+  }
+  else {
+    return (new float[]{Divide(trigFunction("sec",rTwo*xNot)*(rTwo*yNot*trigFunction("cot",rTwo*xNot) + rOne*yNot - yNot - yprimeNot + rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1)),Divide(trigFunction("csc",rTwo*xNot)*(yprimeNot + rTwo*yNot*tan(rTwo*xNot) - rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1))});
   }
 }

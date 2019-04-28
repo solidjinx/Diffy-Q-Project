@@ -1,5 +1,11 @@
 //////Graphs solution curves to differential equations
 int sampleRate = 32;
+int functionSwap = 0;
+
+float springM;
+float springB;
+float springK;
+
 
 void setup(){
   fullScreen(P2D,1);
@@ -22,9 +28,13 @@ void draw(){
     // convert i from pixels to math
     // do f(x) to result get y
     // convert y from math to pixels
-    
-    multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
-    
+    if (functionSwap % 240 == 1){
+      functionSwap = 0;
+      springM = random(1,sampleRate);
+      springB = random(1,sampleRate);
+      springK  = random(1,sampleRate);
+      multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
+    }
     //for (int w = 0; w < sampleRate; w++){
     //  multiPix(i,round(xFunction(i - Divide(w,sampleRate))) + height/2,RainbowGen());
     //}
@@ -33,9 +43,9 @@ void draw(){
     //}
   }
   updatePixels();
+  functionSwap++;
   
-  
-  println(int(frameRate));
+  println(int(functionSwap));
 }
 
 void multiPix(int x, int y, color c){
