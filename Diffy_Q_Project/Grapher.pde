@@ -1,8 +1,8 @@
 //===============================================SANITY CHECKING====================================================================\\
-float xMin = -10;
-float xMax = 10;
-float yMin = -10;
-float yMax = 10;
+float xMin = -100;
+float xMax = 100;
+float yMin = -100;
+float yMax = 100;
 
 float xFunction(float x){
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
