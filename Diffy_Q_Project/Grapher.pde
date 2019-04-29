@@ -7,17 +7,17 @@ float yMax = 100;
 float xFunction(float x){
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
   if (springType(springM,springB,springK) == "Overdamped"){
-    float y = (particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,Average(new float[]{pmouseX,pmouseY}))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,Average(new float[]{pmouseX,pmouseY}))[1]*exp(QuadraticEQ(springM,springB,springK)[1]*x));
+    float y = (particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,random(-4,4))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,random(-4,4))[1]*exp(QuadraticEQ(springM,springB,springK)[1]*x));
     return -y;
   }
   //Two real, repeating roots of the form:  C1e^(r1t) + C2te^(r2t)
   else if (springType(springM,springB,springK) == "Critically Damped"){
-    float y = (particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,Average(new float[]{pmouseX,pmouseY}))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,Average(new float[]{pmouseX,pmouseY}))[1]*x*exp(QuadraticEQ(springM,springB,springK)[0]*x));
+    float y = (particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,random(-4,4))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,random(-4,4))[1]*x*exp(QuadraticEQ(springM,springB,springK)[0]*x));
     return -y;
   }
   //Two imaginary, non-repeating roots of the form:  C1e^(at)cos(bt) + C2e^(at)sin(bt)
   else {
-    float y = (particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,Average(new float[]{pmouseX,pmouseY}))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*cos(QuadraticEQ(springM,springB,springK)[1]*x) + particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,Average(new float[]{pmouseX,pmouseY}))[1]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*sin(QuadraticEQ(springM,springB,springK)[1]*x));
+    float y = (particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,random(-4,4))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*cos(QuadraticEQ(springM,springB,springK)[1]*x) + particular(mouseX,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],mouseY,random(-4,4))[1]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*sin(QuadraticEQ(springM,springB,springK)[1]*x));
     return -y;
   }
 }

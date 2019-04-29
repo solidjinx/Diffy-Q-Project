@@ -30,11 +30,11 @@ void draw(){
     // convert y from math to pixels
     if (functionSwap % 240 == 1){
       functionSwap = 0;
-      springM = random(1,sampleRate);
-      springB = random(1,sampleRate);
-      springK  = random(1,sampleRate);
-      multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
+      springM = fDynRandom(-10,10, new float[]{0});
+      springB = random(-6,6);
+      springK  = random(-6,6);
     }
+    multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
     //for (int w = 0; w < sampleRate; w++){
     //  multiPix(i,round(xFunction(i - Divide(w,sampleRate))) + height/2,RainbowGen());
     //}
@@ -45,7 +45,7 @@ void draw(){
   updatePixels();
   functionSwap++;
   
-  println(int(functionSwap));
+  //println(int(functionSwap));
 }
 
 void multiPix(int x, int y, color c){

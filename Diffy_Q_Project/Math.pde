@@ -31,15 +31,15 @@ float Divide(float N, float D){
   }
   else {
     if (int(Divide(N,abs(N))) < 0){
-      println("Division By Zero -- returned Negative Infinity");
+      //println("Division By Zero -- returned Negative Infinity");
       return tan(Divide(3*PI,2));
     }
     else if (int(Divide(N,abs(N))) > 0){
-      println("Division By Zero -- returned Infinity");
+      //println("Division By Zero -- returned Infinity");
       return -tan(Divide(PI,2));
     }
     else {
-      println("L'Hopital Indeterminate -- returned Zero");
+      //println("L'Hopital Indeterminate -- returned Zero");
       return 0;
     }
   }
@@ -68,7 +68,7 @@ float fCube(float n){
 //Calculates the values for non-default trigonometric functions by their shorthand notation
 float trigFunction(String name, float theta){
   if (name == "help!"){
-    String[] trigCatalog = {"Cosecant --> csc(Z)=1/sin(Z)","Secant --> sec(Z)=1/cos(Z)","Cotangent --> cot(Z)=1/tan(Z)","Versine --> ver(Z)=1 - cos(Z)","Vercosine --> vcs(Z)=1 + cos(Z)","Coversine --> cvs(Z)=1 - sin(Z)","Covercosine --> cvc(Z)=1 + sin(Z)","Haversine --> hav(Z)=(1 - cos(Z))/2","Havercosine --> hvc(Z)=(1 + cos(Z))/2","Hacoversine --> hcv(Z)=(1 - sin(Z))/2","Hacovercosine --> hcc(Z)=(1 + sin(Z))/2","Exsecant --> exs(Z)=sec(Z) - 1","Excosecant --> exc(Z)=csc(Z) - 1","Chord --> crd(Z)=2sin(Z/2)"};
+    String[] trigCatalog = {"Cosecant --> csc(Z) = 1/sin(Z)","Secant --> sec(Z) = 1/cos(Z)","Cotangent --> cot(Z) = 1/tan(Z)","Versine --> ver(Z) = 1 - cos(Z)","Vercosine --> vcs(Z) = 1 + cos(Z)","Coversine --> cvs(Z) = 1 - sin(Z)","Covercosine --> cvc(Z) = 1 + sin(Z)","Haversine --> hav(Z) = (1 - cos(Z))/2","Havercosine --> hvc(Z) = (1 + cos(Z))/2","Hacoversine --> hcv(Z) = (1 - sin(Z))/2","Hacovercosine --> hcc(Z) = (1 + sin(Z))/2","Exsecant --> exs(Z) = sec(Z) - 1","Excosecant --> exc(Z) = csc(Z) - 1","Chord --> crd(Z) = 2sin(Z/2)"};
     for (int i = 0; i < trigCatalog.length; i++){
       println(trigCatalog[i]);
     }
@@ -132,6 +132,45 @@ boolean Compare(float numberA, float numberB){
   }
 }
 
+//Checks if a number is within a given range
+boolean inRange(String condition, float min, float max, float item){
+  if (condition == "help!"){
+    String[] boundConditions = {"Mutually Inclusive --> []","Upper Exclusive, Lower Inclusive --> [)","Upper Inclusive, Lower Exclusive --> (]","Mutually Exclusive --> ()"};
+    for (int i = 0; i < boundConditions.length; i++){
+      println(boundConditions[i]);
+    }
+    return false;
+  }
+  else if (condition == "[]"){
+    if (item >= min && item <= max){
+      return true;
+    }
+    return false;
+  }
+  else if (condition == "[)"){
+    if (item >= min && item < max){
+      return true;
+    }
+    return false;
+  }
+  else if (condition == "(]"){
+    if (item > min && item <= max){
+      return true;
+    }
+    return false;
+  }
+  else if (condition == "()"){
+    if (item > min && item < max){
+      return true;
+    }
+    return false;
+  }
+  else {
+    println("Invalid or missing entry; type 'help!' to see a list of available conditions");
+    return false;
+  }
+}
+
 //Returns largest number between numberA & numberB
 float ReturnCompare(float numberA, float numberB){
   if (Compare(numberA,numberB)){
@@ -152,6 +191,43 @@ float ReturnNotCompare(float numberA, float numberB){
   }
 }
 
+//Randomly selects an integer within a given range; rerolls the number if it matches a blacklisted item
+int iDynRandom(int min, int max, int[] blacklist){
+  if (blacklist.length == (max - min)){
+    return max;
+  }
+  boolean blacklisted = false;
+  int item = int(random(min,max));
+  for (int i = 0; i < blacklist.length; i++){
+    if (item == blacklist[i]){
+      blacklisted = true;
+    }
+  }
+  if (!blacklisted){
+    return item;
+  }
+  else {
+    return iDynRandom(min,max,blacklist);
+  }
+}
+
+//Randomly selects a float within a given range; rerolls the number if it matches a blacklisted item
+float fDynRandom(float min, float max, float[] blacklist){
+  boolean blacklisted = false;
+  float item = random(min,max);
+  for (int i = 0; i < blacklist.length; i++){
+    if (item == blacklist[i]){
+      blacklisted = true;
+    }
+  }
+  if (!blacklisted){
+    return item;
+  }
+  else {
+    return fDynRandom(min,max,blacklist);
+  }
+}
+
 //Intelligent Quadratic solver
 boolean realRoots;
 float[] QuadraticEQ(float a, float b, float c){
@@ -160,7 +236,7 @@ float[] QuadraticEQ(float a, float b, float c){
     return (new float[]{Divide(-b + sqrt(sq(b) - 4*a*c),2*a),Divide(-b - sqrt(sq(b) - 4*a*c),2*a)});
   }
   else {
-    println("Non-Real Solutions to QuadraticEQ -- returned Rectangular Complex Divisor");
+    //println("Non-Real Solutions to QuadraticEQ -- returned Rectangular Complex Divisor");
     realRoots = false;
     return (new float[]{Divide(sqrt(-(sq(b) - 4*a*c)),2*a),Divide(-b,2*a)});
   }
