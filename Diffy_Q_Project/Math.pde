@@ -30,11 +30,11 @@ float Divide(float N, float D){
     return N/D;
   }
   else {
-    if (int(Divide(N,abs(N))) < 0){
+    if (N/abs(N) < 0){
       //println("Division By Zero -- returned Negative Infinity");
       return -(1.844674407*pow(10,18));
     }
-    else if (int(Divide(N,abs(N))) > 0){
+    else if (N/abs(N) > 0){
       //println("Division By Zero -- returned Infinity");
       return (1.844674407*pow(10,18));
     }

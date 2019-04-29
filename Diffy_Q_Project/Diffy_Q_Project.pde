@@ -27,7 +27,7 @@ void draw(){
       functionSwap = 0;
       springM = fDynRandom(-6,6,new float[]{0});
       springB = random(-6,6);
-      springK  = random(-6,6);
+      springK = random(-6,6);
     }
     multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
   }
