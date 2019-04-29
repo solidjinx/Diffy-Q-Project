@@ -32,11 +32,11 @@ float Divide(float N, float D){
   else {
     if (int(Divide(N,abs(N))) < 0){
       //println("Division By Zero -- returned Negative Infinity");
-      return tan(Divide(3*PI,2));
+      return -(1.844674407*pow(10,18));
     }
     else if (int(Divide(N,abs(N))) > 0){
       //println("Division By Zero -- returned Infinity");
-      return -tan(Divide(PI,2));
+      return (1.844674407*pow(10,18));
     }
     else {
       //println("L'Hopital Indeterminate -- returned Zero");
