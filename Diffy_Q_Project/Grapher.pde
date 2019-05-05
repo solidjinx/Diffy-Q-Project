@@ -1,23 +1,32 @@
 //===============================================SANITY CHECKING====================================================================\\
-float xMin = -100;
-float xMax = 100;
-float yMin = -100;
-float yMax = 100;
+float xMin = -10;
+float xMax = 10;
+float yMin = -10;
+float yMax = 10;
+float xnaught =2;
+float ynaught =0;
+float yprimenaught =1;
 
 float xFunction(float x){
+  println("xFunctionmethod");
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
   if (springType(springM,springB,springK) == "Overdamped"){
-    float y = (particular(random(1,4),QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],random(3),random(-4,4))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(random(1,4),QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],random(3),random(-4,4))[1]*exp(QuadraticEQ(springM,springB,springK)[1]*x));
+    float y = (particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(2,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[1]*exp(QuadraticEQ(springM,springB,springK)[1]*x));
+    println("Over");
     return -y;
   }
   //Two real, repeating roots of the form:  C1e^(r1t) + C2te^(r2t)
   else if (springType(springM,springB,springK) == "Critically Damped"){
-    float y = (particular(random(1,4),QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],random(3),random(-4,4))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(random(1,4),QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],random(3),random(-4,4))[1]*x*exp(QuadraticEQ(springM,springB,springK)[0]*x));
+    float y = (particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x) + particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[1]*x*exp(QuadraticEQ(springM,springB,springK)[0]*x));
+    println("crit");
     return -y;
   }
   //Two imaginary, non-repeating roots of the form:  C1e^(at)cos(bt) + C2e^(at)sin(bt)
   else {
-    float y = (particular(random(1,4),QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],random(3),random(-4,4))[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*cos(QuadraticEQ(springM,springB,springK)[1]*x) + particular(random(1,4),QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],random(3),random(-4,4))[1]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*sin(QuadraticEQ(springM,springB,springK)[1]*x));
+    float y = (particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*cos(QuadraticEQ(springM,springB,springK)[1]*x) + particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[1]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*sin(QuadraticEQ(springM,springB,springK)[1]*x));
+    println(QuadraticEQ(springM,springB,springK)[0]);
+    println("IM");
+    println(y);
     return -y;
   }
 }

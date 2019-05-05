@@ -30,13 +30,13 @@ float Divide(float N, float D){
     return N/D;
   }
   else {
-    if (N/abs(N) < 0){
+    if (N < 0){
       //println("Division By Zero -- returned Negative Infinity");
-      return -(1.844674407*pow(10,18));
+      return -(1.844674407*pow(10,16));
     }
-    else if (N/abs(N) > 0){
+    else if (N > 0){
       //println("Division By Zero -- returned Infinity");
-      return (1.844674407*pow(10,18));
+      return (1.844674407*pow(10,16));
     }
     else {
       //println("L'Hopital Indeterminate -- returned Zero");
@@ -238,7 +238,7 @@ float[] QuadraticEQ(float a, float b, float c){
   else {
     //println("Non-Real Solutions to QuadraticEQ -- returned Rectangular Complex Divisor");
     realRoots = false;
-    return (new float[]{Divide(sqrt(-(sq(b) - 4*a*c)),2*a),Divide(-b,2*a)});
+    return (new float[]{Divide(-b,2*a),Divide(sqrt(-(sq(b) - 4*a*c)),2*a)});
   }
 }
 
@@ -273,13 +273,14 @@ String springType(float m, float b, float k){
 
 //Calculates a particular solution given two initial conditions
 float[] particular(float xNot, float rOne, float rTwo, float yNot, float yprimeNot){
-  if (springType(springM,springB,springK) == "Overdamped"){
-    return (new float[]{Divide(rTwo*yNot - yprimeNot,exp(rOne*xNot)*(rTwo - rOne)),Divide(yprimeNot - rOne*yNot,exp(rTwo*xNot)*(rTwo - rOne))});
-  }
-  else if (springType(springM,springB,springK) == "Critically Damped"){
-    return (new float[]{Divide(yNot - xNot*yprimeNot - rOne*xNot*yNot,exp(rOne*xNot)),Divide(yprimeNot - rOne*yNot,exp(rOne*xNot))});
-  }
-  else {
-    return (new float[]{Divide(trigFunction("sec",rTwo*xNot)*(rTwo*yNot*trigFunction("cot",rTwo*xNot) + rOne*yNot - yNot - yprimeNot + rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1)),Divide(trigFunction("csc",rTwo*xNot)*(yprimeNot + rTwo*yNot*tan(rTwo*xNot) - rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1))});
-  }
+  return (new float[]{1,1});
+  //if (springType(springM,springB,springK) == "Overdamped"){
+  //  return (new float[]{Divide(rTwo*yNot - yprimeNot,exp(rOne*xNot)*(rTwo - rOne)),Divide(yprimeNot - rOne*yNot,exp(rTwo*xNot)*(rTwo - rOne))});
+  //}
+  //else if (springType(springM,springB,springK) == "Critically Damped"){
+  //  return (new float[]{Divide(yNot - xNot*yprimeNot - rOne*xNot*yNot,exp(rOne*xNot)),Divide(yprimeNot - rOne*yNot,exp(rOne*xNot))});
+  //}
+  //else {
+  //  return (new float[]{Divide(trigFunction("sec",rTwo*xNot)*(rTwo*yNot*trigFunction("cot",rTwo*xNot) + rOne*yNot - yNot - yprimeNot + rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1)),Divide(trigFunction("csc",rTwo*xNot)*(yprimeNot + rTwo*yNot*tan(rTwo*xNot) - rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1))});
+  //}
 }
