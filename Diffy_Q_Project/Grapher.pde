@@ -3,9 +3,9 @@ float xMin = -10;
 float xMax = 10;
 float yMin = -10;
 float yMax = 10;
-float xnaught =2;
-float ynaught =0;
-float yprimenaught =1;
+float xnaught = 0;
+float ynaught = -4;
+float yprimenaught = 1;
 
 float xFunction(float x){
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
@@ -29,17 +29,22 @@ void Axis(int xScale, int yScale){
   pushStyle();
   stroke(0);
   strokeWeight(4);
+  fill(0);
   //X-Axis
   line(0,height/2,width,height/2);
   //Tick marks
   for (int i = floor(Divide(width,xScale)); i < width; i += floor(Divide(width,xScale))){
     line(i,Divide(height,2) - 4,i,Divide(height,2) + 4);
   }
+  triangle(0,height/2,16,height/2 - 8,16,height/2 + 8);
+  triangle(width,height/2,width - 16,height/2 - 8,width - 16,height/2 + 8);
   //Y-Axis
   line(width/2,0,width/2,height);
   //Tick marks
   for (int j = floor(Divide(height,yScale)); j < height; j += floor(Divide(height,yScale))){
     line(Divide(width,2) - 4,j,Divide(width,2) + 4,j);
   }
+  triangle(width/2,0,width/2 - 8,16,width/2 + 8,16);
+  triangle(width/2,height,width/2 - 8,height - 16,width/2 + 8,height - 16);
   popStyle();
 }

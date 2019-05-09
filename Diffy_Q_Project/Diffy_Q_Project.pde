@@ -7,15 +7,15 @@ float springK;
 
 
 void setup(){
-  //fullScreen(P2D,1);
-  size(1000,1000,P2D);
+  fullScreen(P2D,1);
+  //size(1000,1000,P2D);
   smooth(16);
   frameRate(120);
   loadPixels();
 
   springM = 1;
-  springB = 0;
-  springK = 1;
+  springB = 2;
+  springK = 7;
 }
 
 void draw(){
