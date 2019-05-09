@@ -255,7 +255,7 @@ float HeronArea(float sideA, float sideB, float sideC){
 
 //===============================================ANALYTIC COMPUTATION====================================================================\\
 
-//2nd Order Linear Constant Coefficient Homogeneous ODE spring type parcer
+//2nd Order Linear Constant Coefficient Homogeneous ODE oscillator parcer
 String springType(float m, float b, float k){
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
   if (QuadraticEQ(m,b,k)[0] != QuadraticEQ(m,b,k)[1] && realRoots){
