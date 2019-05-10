@@ -25,8 +25,10 @@ void draw(){
     pixels[i] = color(255);
   }
   for (int i = 1; i < (width - 1); i++){
-    //pixels[y*width + x]
-    multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR, dG, dB));
+    //for (int w = 0; w < sampleRate; w++){
+      //pixels[y*width + x]
+      multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR, dG, dB));
+    //}
   }
   updatePixels();
 }
