@@ -1,5 +1,5 @@
 //////Graphs solution curves to differential equations
-int sampleRate = 32;
+int sampleRate = 128;
 
 float springM;
 float springB;
@@ -25,17 +25,18 @@ void draw(){
     pixels[i] = color(255);
   }
   for (int i = 1; i < (width - 1); i++){
-    //for (int w = 0; w < sampleRate; w++){
+    for (int w = 0; w < sampleRate; w++){
       //pixels[y*width + x]
-      multiPix(i,round(map(xFunction(map(i,1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR, dG, dB));
-    //}
+      multiPix(i,round(map(xFunction(map(i + Divide(w,sampleRate),1,width - 2,xMin,xMax)),yMin,yMax,1,height - 2)),color(dR,dG,dB));
+    }
   }
   updatePixels();
+  println(frameRate);
 }
 
 void multiPix(int x, int y, color c){
   //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
-  if (y > 0 && y < height) {
+  if (y > 1 && y < (height - 1)) {
     pixels[(y - 1)*width + (x - 1)] = c;    //TOP-LEFT
     pixels[(y - 1)*width + x] = c;          //TOP-CENTER
     pixels[(y - 1)*width + (x + 1)] = c;    //TOP-RIGHT
