@@ -1,11 +1,37 @@
+//Plots the solution curve as a whole -- toggleable pixel accuracy
+void Plot(){
+  RainbowGen();
+  Axis(20,20);
+  for (int i = 0; i < pixels.length; i++){
+    pixels[i] = color(255);
+  }
+  for (int i = 0; i < width; i++){
+    for (int w = 0; w < sampleRate; w++){
+      //pixels[y*width + x]
+      multiPix(i,round(map(xFunction(map(i + Divide(w,sampleRate),0,width,xMin,xMax)),yMin,yMax,0,height)),color(dR,dG,dB));
+    }
+  }
+  updatePixels();
+}
+
+//Plots an eight-point coordinate
+void multiPix(int x, int y, color c){
+  if (y > 1 && y < (height - 1)) {
+    pixels[(y - 1)*width + (x - 1)] = c;    //TOP-LEFT
+    pixels[(y - 1)*width + x] = c;          //TOP-CENTER
+    pixels[(y - 1)*width + (x + 1)] = c;    //TOP-RIGHT
+
+    pixels[y*width + (x - 1)] = c;          //CENTER-LEFT
+    pixels[y*width + x] = c;                //CENTER-CENTER
+    pixels[y*width + (x + 1)] = c;          //CENTER-RIGHT
+
+    pixels[(y + 1)*width + (x - 1)] = c;    //BOTTOM-LEFT
+    pixels[(y + 1)*width + x] = c;          //BOTTOM-CENTER
+    pixels[(y + 1)*width + (x + 1)] = c;    //BOTTOM-RIGHT
+  }
+}
+
 //===============================================SANITY CHECKING====================================================================\\
-float xMin = -10;
-float xMax = 10;
-float yMin = -10;
-float yMax = 10;
-float xnaught = 0;
-float ynaught = -4;
-float yprimenaught = 1;
 
 float xFunction(float x){
   //Two real, non-repeating roots of the form:  C1e^(r1t) + C2e^(r2t)
@@ -23,28 +49,4 @@ float xFunction(float x){
     float y = (particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[0]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*cos(QuadraticEQ(springM,springB,springK)[1]*x) + particular(xnaught,QuadraticEQ(springM,springB,springK)[0],QuadraticEQ(springM,springB,springK)[1],ynaught,yprimenaught)[1]*exp(QuadraticEQ(springM,springB,springK)[0]*x)*sin(QuadraticEQ(springM,springB,springK)[1]*x));
     return -y;
   }
-}
-
-void Axis(int xScale, int yScale){
-  pushStyle();
-  stroke(0);
-  strokeWeight(4);
-  fill(0);
-  //X-Axis
-  line(0,height/2,width,height/2);
-  //Tick marks
-  for (int i = floor(Divide(width,xScale)); i < width; i += floor(Divide(width,xScale))){
-    line(i,Divide(height,2) - 4,i,Divide(height,2) + 4);
-  }
-  triangle(0,height/2,16,height/2 - 8,16,height/2 + 8);
-  triangle(width,height/2,width - 16,height/2 - 8,width - 16,height/2 + 8);
-  //Y-Axis
-  line(width/2,0,width/2,height);
-  //Tick marks
-  for (int j = floor(Divide(height,yScale)); j < height; j += floor(Divide(height,yScale))){
-    line(Divide(width,2) - 4,j,Divide(width,2) + 4,j);
-  }
-  triangle(width/2,0,width/2 - 8,16,width/2 + 8,16);
-  triangle(width/2,height,width/2 - 8,height - 16,width/2 + 8,height - 16);
-  popStyle();
 }

@@ -284,3 +284,10 @@ float[] particular(float xNot, float rOne, float rTwo, float yNot, float yprimeN
     return (new float[]{Divide(trigFunction("sec",rTwo*xNot)*(rTwo*yNot*trigFunction("cot",rTwo*xNot) + rOne*yNot - yNot - yprimeNot + rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1)),Divide(trigFunction("csc",rTwo*xNot)*(yprimeNot + rTwo*yNot*tan(rTwo*xNot) - rOne*yNot),exp(rOne*xNot)*(rTwo*trigFunction("cot",rTwo*xNot) + rOne + rTwo*tan(rTwo*xNot) - 1))});
   }
 }
+
+float[] calibration(float[] massPos, float[] frictionPos, float[] springkPos, float[] iConditions){
+  springM = map(massDial.xPos,width/4,Divide(3*width,4),-100,100);
+  springB = map(frictionDial.xPos,width/4,Divide(3*width,4),-100,100);
+  springK = map(springkDial.xPos,width/4,Divide(3*width,4),-100,100);
+  return new float[]{springM,springB,springK,xnaught,ynaught,yprimenaught};
+}

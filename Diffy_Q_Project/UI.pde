@@ -7,6 +7,55 @@ int t = 0;
 float T = 0;
 
 //===============================================GLOBAL TEXTURE CONTROL====================================================================\\
+void Axis(int xScale, int yScale){
+  pushStyle();
+  stroke(0);
+  strokeWeight(4);
+  fill(0);
+  //X-Axis
+  line(0,height/2,width,height/2);
+  //Tick marks
+  for (int i = floor(Divide(width,xScale)); i < width; i += floor(Divide(width,xScale))){
+    line(i,Divide(height,2) - 4,i,Divide(height,2) + 4);
+  }
+  triangle(0,height/2,16,height/2 - 8,16,height/2 + 8);
+  triangle(width,height/2,width - 16,height/2 - 8,width - 16,height/2 + 8);
+  //Y-Axis
+  line(width/2,0,width/2,height);
+  //Tick marks
+  for (int j = floor(Divide(height,yScale)); j < height; j += floor(Divide(height,yScale))){
+    line(Divide(width,2) - 4,j,Divide(width,2) + 4,j);
+  }
+  triangle(width/2,0,width/2 - 8,16,width/2 + 8,16);
+  triangle(width/2,height,width/2 - 8,height - 16,width/2 + 8,height - 16);
+  popStyle();
+}
+
+//Initializes and displays a gradient along the positive X-Cardinal
+void setxGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, color c1, color c2){
+  noFill();
+  for (int i = xPlacement; i <= (xPlacement + xSpread); i++){
+    //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
+    float inter = map(i,xPlacement,xPlacement + xSpread,0,1);
+    color c = lerpColor(c1,c2,inter);
+    stroke(c);
+    line(i,yPlacement,i,yPlacement + ySpread);
+  }
+}
+
+//Initializes and displays a gradient along the positive Y-Cardinal
+void setyGradient(int xPlacement, int yPlacement, float xSpread, float ySpread, color c1, color c2){
+  noFill();
+  for (int i = yPlacement; i <= (yPlacement + ySpread); i++){
+    //Map function relates a point on one axis to a point on another axis, directional one-to-one <----> map(float to map, min original, max original, min target, max target)
+    float inter = map(i,yPlacement,yPlacement + ySpread,0,1);
+    color c = lerpColor(c1,c2,inter);
+    stroke(c);
+    line(xPlacement,i,xPlacement + xSpread,i);
+  }
+}
+
+//===============================================GLOBAL COLOR CONTROL====================================================================\\
 
 //Calculates the next color in the ROYGBIV RGB color spectrum
 color RainbowGen(){
@@ -94,4 +143,57 @@ color MapColorGen(float xPosition, float yPosition){
 //Produces a random color
 color RandomColorGen(){
   return color(int(random(256)),int(random(256)),int(random(256)));
+}
+
+//===============================================DRAFTS NAVIGATION====================================================================\\
+
+//Did the player click a navigation button?
+boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight){
+  if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(new float[]{hitWidth,hitHeight}),2)){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+//For dials
+class Dial{
+  ////Class variables
+  float xPos;
+  int yPos;
+  int r = 8;
+  
+  Dial(int vertOffset){
+    ////Constructor
+    xPos = width/2;
+    yPos = vertOffset;
+  }
+  
+  ////Class methods
+  void move(){
+    if (mousePressed && localTIMER >= 120 && NavClicked(xPos,yPos,2*r,2*r)){
+      xPos = mouseX;
+    }
+  }
+  
+  void display(){
+    pushStyle();
+    setyGradient(width/4,yPos,round(Divide(3*width,4)),yPos - r,color(255,0,0),color(255));
+    setyGradient(width/4,yPos,round(Divide(3*width,4)),yPos + r,color(255,0,0),color(255));
+    noStroke();
+    fill(0);
+    ellipseMode(CENTER);
+    ellipse(width/4,yPos,3,r);
+    ellipse(Divide(3*width,4),yPos,3,r);
+    noStroke();
+    fill(255,255,0,80);
+    ellipseMode(RADIUS);
+    ellipse(xPos,yPos,r,r);
+    if (NavClicked(xPos,yPos,2*r,2*r)){
+      fill(0,40);
+      ellipse(xPos,yPos,Divide(3*r,2),Divide(3*r,2));
+    }
+    popStyle();
+  }
 }
