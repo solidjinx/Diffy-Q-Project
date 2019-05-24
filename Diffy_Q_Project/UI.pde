@@ -152,9 +152,7 @@ boolean NavClicked(float xCenter, float yCenter, float hitWidth, float hitHeight
   if (dist(mouseX,mouseY,xCenter,yCenter) <= Divide(Average(new float[]{hitWidth,hitHeight}),2)){
     return true;
   }
-  else {
-    return false;
-  }
+  return false;
 }
 
 //For dials
@@ -163,6 +161,8 @@ class Dial{
   float xPos;
   int yPos;
   int r = 8;
+  
+  boolean altered = false;
   
   Dial(int vertOffset){
     ////Constructor
@@ -173,26 +173,26 @@ class Dial{
   ////Class methods
   void move(){
     if (mousePressed && localTIMER >= 120 && NavClicked(xPos,yPos,2*r,2*r)){
+      altered = true;
       xPos = mouseX;
     }
   }
   
   void display(){
     pushStyle();
-    setyGradient(width/4,yPos,round(Divide(3*width,4)),yPos - r,color(255,0,0),color(255));
-    setyGradient(width/4,yPos,round(Divide(3*width,4)),yPos + r,color(255,0,0),color(255));
+    setyGradient(width/4,yPos,round(Divide(3*width,4)),yPos - r,color(255,0,0),color(255,0,0,50));
+    setyGradient(width/4,yPos,round(Divide(3*width,4)),yPos + r,color(255,0,0),color(255,0,0,50));
     noStroke();
     fill(0);
     ellipseMode(CENTER);
-    ellipse(width/4,yPos,3,r);
+    ellipse(xPos,yPos,3,r);
     ellipse(Divide(3*width,4),yPos,3,r);
     noStroke();
     fill(255,255,0,80);
     ellipseMode(RADIUS);
     ellipse(xPos,yPos,r,r);
-    if (NavClicked(xPos,yPos,2*r,2*r)){
+    if (altered){
       fill(0,40);
-      ellipse(xPos,yPos,Divide(3*r,2),Divide(3*r,2));
     }
     popStyle();
   }
