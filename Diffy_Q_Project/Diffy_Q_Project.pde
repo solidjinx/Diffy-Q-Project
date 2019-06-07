@@ -38,12 +38,12 @@ void setup(){
   yMin = -10;
   yMax = 10;
   
-  springM = 4;
-  springB = 2;
-  springK = 1;
+  springM = 3;
+  springB = 1;
+  springK = 30;
   xnaught = 0;
-  ynaught = 5;
-  yprimenaught = -1;
+  ynaught = -4;
+  yprimenaught = 3;
 }
 
 void draw(){
